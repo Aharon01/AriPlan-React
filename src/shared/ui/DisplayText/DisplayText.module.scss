@@ -1,0 +1,22 @@
+.text {
+	position: absolute;
+	top: -50px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 1.5rem;
+	font-weight: semi-bold;
+	white-space: nowrap;
+	&::after {
+		content: '|';
+		color: #fff;
+		font-weight: bold;
+		padding: 0 1px;
+		animation: cursor1 1s infinite;
+	}
+}
+
+@keyframes cursor1 {
+	50% {
+		color: #000;
+	}
+}
