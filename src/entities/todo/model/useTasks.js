@@ -1,31 +1,31 @@
-import {useCallback, useEffect, useMemo, useRef, useState, useReducer } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, useReducer } from 'react'
 import tasksAPI from '@/shared/api/tasks'
 
 const tasksReducer = (state, action) => {
   switch (action.type) {
     case 'SET_ALL': {
       return Array.isArray(action.tasks) ? action.tasks : state
-  }
+    }
     case 'ADD': {
       return [...state, action.task]
-  }
+    }
     case 'TOGGLE_COMPLETE': {
       const { id, isDone } = action
 
       return state.map((task) => {
-       return task.id === id ? { ...task, isDone } : task
+        return task.id === id ? { ...task, isDone } : task
       })
-  }
+    }
     case 'DELETE': {
       return state.filter((task) => task.id !== action.id)
-  }
+    }
     case 'DELETE_ALL': {
       return []
-  }
+    }
     default: {
-    return state
+      return state
+    }
   }
- }
 }
 
 const useTasks = () => {
@@ -73,7 +73,7 @@ const useTasks = () => {
     tasksAPI.add(newTask)
       .then((addedTask) => {
         dispatch({ type: 'ADD', task: addedTask })
-        callbackAfterAdding('')
+        callbackAfterAdding()
         setSearchQuery('')
         newTaskInputRef.current.focus()
         setAppearingTaskId(addedTask.id)
@@ -87,8 +87,8 @@ const useTasks = () => {
     newTaskInputRef.current.focus()
 
     tasksAPI.getAll().then((serverTasks) => {
-        dispatch({ type: 'SET_ALL', tasks: serverTasks })
-      })
+      dispatch({ type: 'SET_ALL', tasks: serverTasks })
+    })
   }, [])
 
   const filteredTasks = useMemo(() => {
